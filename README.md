@@ -13,7 +13,7 @@ Each project has its own folder with code, notebooks, and documentation.
 |:--|:--|:--|
 | [Realised Volatility Forecast](./realised-volatility-forecast/README.md) | Forecasting realised volatility using HAR and XGBoost models | Python, R, scikit-learn, xgboost |
 
-*(More projects coming soon — including .........)*
+*(More projects coming soon)*
 
 ---
 
