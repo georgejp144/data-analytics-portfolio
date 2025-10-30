@@ -12,7 +12,7 @@ Each project has its own folder with code, notebooks, and documentation.
 | Project | Description | Tech Stack |
 |:--|:--|:--|
 | [Realised Volatility Forecast](./realised-volatility-forecast/README.md) | Forecasting realised volatility using HAR and XGBoost models | Python, R, scikit-learn, xgboost |
-| [Gamma Scalping & Volatility Arbitrage Bot](./gamma-scalping-bot/README.md) | Automated delta-neutral trading bot using Alpaca API. Calculates option Greeks, maintains portfolio neutrality, and demonstrates volatility arbitrage principles. | Python, Alpaca API, pandas, SciPy, asyncio |
+| [Gamma Scalping Bot](./gamma-scalping-bot/README.md) | Automated delta-neutral trading bot using Alpaca API. Calculates option Greeks, maintains portfolio neutrality, and demonstrates volatility arbitrage principles. | Python, Alpaca API, pandas, SciPy, asyncio |
 *(More projects coming soon)*
 
 ---
