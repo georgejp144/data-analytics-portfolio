@@ -1,0 +1,6 @@
+alpaca-py
+python-dotenv
+numpy
+pandas
+scipy
+nest-asyncio
