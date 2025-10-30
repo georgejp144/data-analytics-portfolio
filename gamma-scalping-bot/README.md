@@ -7,16 +7,19 @@ to capture profits from volatility — a process known as **gamma scalping**.
 ---
 
 ## ⚙️ How It Works
-
-1. **Connects to Alpaca API** using secure keys in a `.env` file  
-2. **Fetches option chain** for an underlying (e.g., JPM)  
-3. **Calculates implied volatility & Greeks** using Black-Scholes  
-4. **Maintains delta neutrality** by trading the underlying stock  
-5. **Hedges periodically** via an async loop (gamma scalping)
+1. Connects to Alpaca API using secure keys in `.env`
+2. Fetches the option chain for a given underlying (e.g., JPM)
+3. Calculates Greeks (Delta, Gamma) using Black–Scholes
+4. Maintains delta neutrality by trading the underlying
+5. Rebalances periodically to capture volatility (gamma scalping)
 
 ---
 
-## 📦 Setup
+## 🧰 Tech Stack
+Python • Alpaca API • pandas • SciPy • asyncio • numpy
 
-```bash
-pip install -r requirements.txt
+---
+
+📬 **Author:** George Pearson  
+[Data Analyst]  
+[LinkedIn](https://www.linkedin.com/in/george-pearson-938914287/)
