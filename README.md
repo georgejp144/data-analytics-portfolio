@@ -1,4 +1,4 @@
-# 👋 George Pearson — Data Analytics & Quantitative Portfolio
+# 👋 George Pearson — Quant Portfolio
 
 Welcome to my professional data science and analytics portfolio.  
 This repository showcases selected projects demonstrating my ability to transform complex, multi-source data into actionable insights using Python, R, SQL, and Power BI.
