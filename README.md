@@ -10,6 +10,7 @@ Each project has its own folder with code, notebooks, and documentation.
 
 | Project | Description | Tech Stack |
 |:--|:--|:--|
+| [Global Macro Dashboard](./global_macro_dashboard/README.md) | This project builds an interactive macroeconomic dashboard in R Shiny that visualises cross-asset relationships across global markets, monetary policy, and economic indicators. | Python, Alpaca API, statsmodels, XGBoost |
 | [Options Swing-Trading Indicator](./options-swing-trading-indicator/README.md) | This project develops a machine-learning signal engine that blends price-based classification with realised vs implied volatility forecasts to guide options swing-trading decisions. | Python, Pandas, NumPy, Scikit-learn, XGBoost, yfinance |
 | [Volatility Dashboard](./volatility-dashboard/README.md) | This project builds an interactive Power BI dashboard that helps identify high-probability straddle entries for gamma-scalping or short-term volatility trades. | Power BI, Alpaca API, Pandas, Numpy |
 | [Realised Volatility Forecast](./realised-volatility-forecast/README.md) | Forecasting realised volatility using HAR and XGBoost models. | Python, Alpaca API, statsmodels, XGBoost |
