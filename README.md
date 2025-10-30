@@ -1,6 +1,6 @@
 # 👋 George Pearson — Quant & Data Analysis Portfolio
   
-This repository showcases selected projects demonstrating my ability to transform complex, multi-source data into actionable insights using Python, R, SQL, and Power BI.
+This repository showcases selected projects demonstrating my ability to transform complex, multi-source data into actionable insights using Python, R, Power BI & Excel.
 
 Each project has its own folder with code, notebooks, and documentation.
 
