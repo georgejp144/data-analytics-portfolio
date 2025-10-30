@@ -19,7 +19,7 @@ Each project has its own folder with code, notebooks, and documentation.
 ---
 
 ## 🧰 Tools & Languages
-Python • R • SQL • Power BI • Excel 
+Python • R • Power BI • Excel 
 
 ---
 
