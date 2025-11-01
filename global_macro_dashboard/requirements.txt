@@ -1,0 +1,15 @@
+# R Package Requirements for Global Macro Dashboard
+
+# Data Collection
+FredR
+data.table
+dplyr
+tidyr
+pipeR
+
+# Dashboard & Visualization
+shiny
+shinydashboard
+ggplot2
+plotly
+scales
