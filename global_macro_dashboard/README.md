@@ -31,13 +31,13 @@ Inflation Metrics	Median CPI, Sticky CPI, PCE, 5Y & 10Y Breakevens	FRED
 Volatility Index	VIX CLS	FRED
 Real Estate	Shiller Home Price Index, BIS Residential & Commercial Property Prices	FRED / BIS
 
-Processing Steps
+Processing Steps:
 
 Merges all datasets into a single daily-frequency table.
 
 Forward-fills lower-frequency (monthly/quarterly) data using dplyr::fill().
 
-Converts series to numeric format and exports to:
+Converts all series to numeric format and exports to:
 
 C:/Users/pears/OneDrive/Desktop/MACRO/Daily.csv
 
@@ -47,23 +47,11 @@ Imports the compiled dataset and prepares it for interactive visualisation.
 
 Parses and converts date fields.
 
-Automatically sets the earliest and latest available dates.
+Automatically determines earliest and latest available dates.
 
 Computes z-scores for standardised comparison across variables:
 
-𝑧
-=
-𝑥
-−
-𝑥
-ˉ
-𝑠
-z=
-s
-x−
-x
-ˉ
-	​
+z = (x - mean(x)) / sd(x)
 
 
 Scales yield-curve data and builds long-format structures for plotting.
@@ -72,7 +60,7 @@ Generates a variable list dynamically for user-selectable charts.
 
 3. Dashboard Architecture
 Module	Description
-Dynamic Value Boxes	Displays key equity indices, FX pairs, yields, and commodity prices
+Dynamic Value Boxes	Display key equity indices, FX pairs, yields, and commodity prices
 Customisable Line Charts	Plot up to five user-selected macro variables over custom ranges
 Yield-Curve Visualiser	Interactive chart of the latest U.S. Treasury curve (3M–20Y)
 Z-Score Comparison Chart	Overlay standardised macro variables to reveal co-movements
