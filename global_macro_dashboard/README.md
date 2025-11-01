@@ -1,7 +1,7 @@
 # 💹 Global Macro Dashboard — Multi-Asset Economic Data Visualizer (R Shiny)
 
 This project builds an **interactive macroeconomic dashboard** in **R Shiny** that visualises cross-asset relationships across **global markets**, **monetary policy**, and **economic indicators**.  
-It integrates data from **FRED**, **Yahoo Finance**, and **Quandl** into a unified macro dataset, transforming it into a **dynamic analytical interface** for macro-financial insight.
+It integrates data from **FRED** and **Yahoo Finance** into a unified macro dataset, transforming it into a **dynamic analytical interface** for macro-financial insight.
 
 ---
 
@@ -37,9 +37,9 @@ Builds a comprehensive **daily macroeconomic dataset (`Daily.csv`)** by connecti
 
 - Merge all datasets into a single **daily-frequency** table.  
 - Forward-fill lower-frequency (monthly / quarterly) data using `dplyr::fill()`.  
-- Convert all series to numeric format and export to:  
+- Convert all series to numeric format and export to working directory.
   ```
-  C:/Users/pears/OneDrive/Desktop/MACRO/Daily.csv
+  
   ```
 
 ---
