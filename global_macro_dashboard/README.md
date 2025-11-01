@@ -5,46 +5,51 @@ It integrates data from FRED, Yahoo Finance, and Quandl into a unified macro dat
 
 🎯 Objective
 
-To provide a real-time, multi-asset visualisation system that enables users to:
+Deliver a real-time, multi-asset visualisation system that enables users to:
 
 Monitor macro trends such as yield-curve shifts, credit spreads, and equity-bond correlations.
 
-Compare and scale any variables (e.g. GDP Growth vs VIX vs 10-Year Yields).
+Compare and scale variables (e.g. GDP Growth vs VIX vs 10-Year Yields).
 
-Inspect the monetary-policy transmission chain across FX, bonds, and commodities.
+Analyse the monetary-policy transmission chain across FX, bonds, and commodities.
 
-Detect periods of market stress, policy tightening, or volatility compression.
+Identify periods of market stress, policy tightening, or volatility compression.
 
 ⚙️ Methodology
-1. Data Aggregation — Macro_Data_Collector.R
+1. Data Collection — Macro_Data_Collector.R
 
-This script builds the foundation of the dashboard by connecting to FRED and Yahoo Finance APIs to construct a comprehensive daily macroeconomic dataset (Daily.csv).
+Builds a comprehensive daily macroeconomic dataset (Daily.csv) by connecting to FRED and Yahoo Finance APIs.
 
-Pulls global and domestic GDP, CPI, Unemployment, and Money Supply (M1–M3).
+Data Category	Examples	Source
+Macroeconomic	GDP (Global, US, China, Japan, Germany, UK, India), CPI, PCE, Unemployment, M1–M3	FRED
+Equity Indices	S&P 500, NASDAQ, FTSE 100, DAX, Nikkei 225, Hang Seng, CAC 40	Yahoo Finance
+FX Rates	EUR/USD, USD/JPY, GBP/USD, USD/CHF, AUD/USD, USD/CAD, NZD/USD	Yahoo Finance / FRED
+Commodities	WTI, Brent, Gold, Silver, Copper	Yahoo Finance
+Interest Rates & Yields	Fed Funds, Discount, Prime, IORB, ON RRP, SOFR, 1M–30Y Treasuries	FRED
+Credit Spreads	ICE BofA AAA, BBB, HY, EM Corporate, EM High Yield	FRED
+Inflation Metrics	Median CPI, Sticky CPI, PCE, 5Y & 10Y Breakevens	FRED
+Volatility Index	VIX CLS	FRED
+Real Estate	Shiller Home Price Index, BIS Residential & Commercial Property Prices	FRED / BIS
 
-Imports equity indices (S&P 500, NASDAQ, FTSE, DAX, Nikkei, Hang Seng, etc.).
+Processing Steps
 
-Gathers FX rates (EUR/USD, USD/JPY, GBP/USD, USD/CHF, AUD/USD, USD/CAD, NZD/USD).
+Merges all datasets into a single daily-frequency table.
 
-Adds commodities (WTI, Brent, Gold, Silver, Copper).
+Forward-fills lower-frequency (monthly/quarterly) data using dplyr::fill().
 
-Includes interest rates, credit spreads, and yield curve data (1M–30Y).
-
-Captures VIX, breakeven inflation, and policy rates such as Fed Funds, Prime, and IORB.
-
-Uses dplyr::fill() to forward-fill monthly or quarterly series for daily alignment.
-
-Outputs the cleaned, unified file as:
+Converts series to numeric format and exports to:
 
 C:/Users/pears/OneDrive/Desktop/MACRO/Daily.csv
 
-2. Dashboard Visualisation — Macro_Dashboard.R
+2. Data Transformation — Macro_Dashboard.R
 
-This Shiny app reads the compiled Daily.csv and transforms it into an interactive multi-panel dashboard with Plotly visuals and live summary tiles.
+Imports the compiled dataset and prepares it for interactive visualisation.
 
-Automatically determines earliest and latest date ranges.
+Parses and converts date fields.
 
-Computes z-scores for all variables for comparability:
+Automatically sets the earliest and latest available dates.
+
+Computes z-scores for standardised comparison across variables:
 
 𝑧
 =
@@ -61,19 +66,25 @@ x
 	​
 
 
-Builds a minimalist, symmetrical dark-themed UI using shinydashboard.
+Scales yield-curve data and builds long-format structures for plotting.
 
-Enables variable selection across multiple modules for custom comparisons.
+Generates a variable list dynamically for user-selectable charts.
 
-3. Dashboard Features
+3. Dashboard Architecture
 Module	Description
-Dynamic Value Boxes	Display live values for equities, yields, FX, and commodities
-Customisable Line Charts	Plot up to five variables over custom date ranges
-Yield Curve Visualiser	Plot the latest U.S. Treasury curve (3M–20Y) dynamically
-Z-Score Comparison Chart	Overlay scaled macro variables to detect co-movements
-Collapsible Panels	Organised market summaries: Indices, Yields, FX, Commodities
-Responsive UI Design	Clean dark-ribbon interface, interactive Plotly visuals
+Dynamic Value Boxes	Displays key equity indices, FX pairs, yields, and commodity prices
+Customisable Line Charts	Plot up to five user-selected macro variables over custom ranges
+Yield-Curve Visualiser	Interactive chart of the latest U.S. Treasury curve (3M–20Y)
+Z-Score Comparison Chart	Overlay standardised macro variables to reveal co-movements
+Collapsible Market Panels	Organised summaries for Equities, Yields, FX, Commodities
+Responsive Dark UI	Symmetrical ribbons, Plotly interactivity, and modern minimal styling
+📊 Example Output
+Panel	Metric	Example Output
+Indices	S&P 500, NASDAQ, FTSE 100, Nikkei 225	Live closing prices
+Yields	3M, 2Y, 5Y, 10Y, 20Y	% values via value boxes
+FX	EUR/USD, GBP/USD, USD/JPY, USD/CHF	Spot rates
+Commodities	Gold, Silver, Brent, WTI, Copper	Latest prices (USD)
 🧠 Core Technologies
 
-R Packages Used:
+R Packages Used
 quantmod • FredR • data.table • dplyr • tidyr • pipeR • shiny • shinydashboard • ggplot2 • plotly • scales
