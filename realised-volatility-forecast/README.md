@@ -1,36 +1,58 @@
-# 📈 Realised Volatility Forecast — HAR & XGBoost
+📈 Realised Volatility Forecast — HAR + XGBoost Model
 
-This project compares econometric (HAR) and machine-learning (XGBoost) approaches to forecasting realised volatility for NASDAQ index options.
+This project builds a machine-learning volatility forecasting engine that predicts the next 14-day realised volatility for the QQQ ETF (NASDAQ-100).
+It combines econometric memory (HAR model) with nonlinear ML power (XGBoost) and technical indicators to improve short-term volatility forecasts used in options trading, vol-timing, or risk-management strategies.
 
----
 
-## 🎯 Objective
-Develop and compare models that predict short-term realised volatility using lagged volatility terms and market indicators.
+⚙️ How It Works
 
----
+Data Collection
 
-## ⚙️ Methodology
-1. Aggregate high-frequency prices into daily realised volatility.
-2. Build **HAR(1,5,22)** model in R.
-3. Train **XGBoost** regression model in Python using engineered features.
-4. Compare performance using RMSE, MAE, and directional-accuracy metrics.
+- Connects securely to the Alpaca Data API using credentials stored in .env.
 
----
+- Downloads ~3 years of daily OHLCV data for QQQ.
 
-## 📊 Results
-| Model | RMSE | MAE | Directional Accuracy |
-|:--|--:|--:|--:|
-| HAR | 0.00084 | 0.00063 | 0.56 |
-| XGBoost | **0.00072** | **0.00052** | **0.63** |
+Feature Engineering
 
-✅ XGBoost improved accuracy by ~15% over HAR while retaining interpretability through feature importance.
+- Computes log returns and realised volatility (14-day, annualised).
 
----
+- Builds HAR-style lag features — 1-, 5-, 22-day volatility memory.
 
-## 🧰 Tech Stack
-Python • R • pandas • NumPy • scikit-learn • xgboost • matplotlib  
+- Adds technical indicators: RSI (14), Bollinger Band width, ATR (14), return-volatility ratios, and volume z-scores.
 
----
+Target Construction
 
-## 📸 Preview (optional)
-_Add a chart later if you have one:_
+- Shifts realised volatility 14 days forward → future target variable.
+
+Model Training
+
+- Scales features with RobustScaler.
+
+- Performs TimeSeriesSplit cross-validation and GridSearchCV to tune XGBoost hyperparameters.
+
+Evaluation & Forecasting
+
+- Reports MAE, RMSE, and Relative MAE on out-of-sample data.
+
+- Generates a live forecast for the next 14 days’ annualised volatility.
+
+Deployment Artifacts
+
+- Saves the tuned model (rv_har_xgb_tuned_model.joblib), scaler (rv_feature_scaler.joblib), and training dataset (rv_training_data.csv).
+
+
+🧰 Tech Stack
+
+Data:	Alpaca API • pandas • numpy • datetime
+ML & Validation:	scikit-learn (GridSearchCV, TimeSeriesSplit) • xgboost
+Feature Engineering:	ta (RSI, Bollinger Bands, ATR)
+Evaluation & Persistence:	MAE / RMSE metrics • joblib
+Environment:	dotenv (for API keys) • Python 3.10+
+
+
+📊 Outputs
+
+MAE:	Mean Absolute Error between predicted vs actual volatility
+RMSE:	Root Mean Squared Error – sensitive to outliers
+Relative MAE:	Model error as % of average realised vol
+Forecast:	Predicted next 14-day annualised realised volatility
