@@ -1,58 +1,86 @@
-📈 Realised Volatility Forecast — HAR + XGBoost Model
+# 📈 Realised Volatility Forecast — HAR + XGBoost Model
 
-This project builds a machine-learning volatility forecasting engine that predicts the next 14-day realised volatility for the QQQ ETF (NASDAQ-100).
-It combines econometric memory (HAR model) with nonlinear ML power (XGBoost) and technical indicators to improve short-term volatility forecasts used in options trading, vol-timing, or risk-management strategies.
+This project develops a **machine-learning volatility forecasting engine** that predicts the **next 14-day realised volatility** for the **QQQ ETF (NASDAQ-100)**.  
+It fuses **econometric memory structures (HAR model)** with **non-linear ML methods (XGBoost)** and **technical indicators** to generate short-term volatility forecasts for **options trading**, **volatility timing**, and **risk-management** strategies.
 
+---
 
-⚙️ How It Works
+## 🎯 Objective
 
-Data Collection
+Provide a **systematic volatility-forecasting framework** that can:
 
-- Connects securely to the Alpaca Data API using credentials stored in .env.
+- Quantify expected **future realised volatility** based on historical patterns and technical factors.  
+- Support **volatility-arbitrage**, **gamma-scalping**, and **hedging** strategies.  
+- Serve as an analytical module within **options trading dashboards** or **vol-timing bots**.  
+- Demonstrate the hybridisation of **HAR regression** and **XGBoost** for volatility prediction.
 
-- Downloads ~3 years of daily OHLCV data for QQQ.
+---
 
-Feature Engineering
+## ⚙️ Methodology
 
-- Computes log returns and realised volatility (14-day, annualised).
+### 1. Data Collection — `rv_forecast_model.py`
+Authenticates securely to the **Alpaca Data API** using credentials stored in `.env`, then downloads ~3 years of daily **OHLCV bars** for QQQ.
 
-- Builds HAR-style lag features — 1-, 5-, 22-day volatility memory.
+| Step | Description |
+|:--|:--|
+| **API Source** | Alpaca Data API (via `alpaca-py`) |
+| **Frequency** | Daily |
+| **Assets** | QQQ ETF (NASDAQ-100) |
+| **Period** | ≈ 3 Years (rolling window) |
 
-- Adds technical indicators: RSI (14), Bollinger Band width, ATR (14), return-volatility ratios, and volume z-scores.
+---
 
-Target Construction
+### 2. Feature Engineering
+Transforms the raw data into predictive features capturing market memory and state:
 
-- Shifts realised volatility 14 days forward → future target variable.
+| Feature Type | Description |
+|:--|:--|
+| **HAR Memory** | 1-, 5- and 22-day realised-volatility lags (`rv_1`, `rv_5`, `rv_22`, `rv_5_22_ratio`) |
+| **Momentum & Volatility** | RSI (14), ATR (14), Bollinger Band width |
+| **Return & Volume Stats** | 5- and 22-day return stdevs, 20-day volume z-score |
+| **Target Variable** | 14-day forward realised volatility (`rv_14_forward`) |
 
-Model Training
+---
 
-- Scales features with RobustScaler.
+### 3. Model Training
+Implements a **HAR + XGBoost hybrid**:
 
-- Performs TimeSeriesSplit cross-validation and GridSearchCV to tune XGBoost hyperparameters.
+- Scales features using `RobustScaler`.  
+- Applies **TimeSeriesSplit cross-validation** to preserve chronological order.  
+- Runs **GridSearchCV** to tune learning-rate, depth, regularisation, and sampling parameters.  
+- Evaluates via **Mean Absolute Error (MAE)** as the primary scoring metric.
 
-Evaluation & Forecasting
+---
 
-- Reports MAE, RMSE, and Relative MAE on out-of-sample data.
+### 4. Evaluation & Forecasting
 
-- Generates a live forecast for the next 14 days’ annualised volatility.
+| Metric | Description |
+|:--|:--|
+| **MAE** | Mean Absolute Error between predicted vs actual realised volatility |
+| **RMSE** | Root Mean Squared Error – sensitive to outliers |
+| **Relative MAE** | Error as a % of average realised volatility |
+| **Forecast Output** | Next 14-day annualised realised volatility estimate |
 
-Deployment Artifacts
+Example output (console):
 
-- Saves the tuned model (rv_har_xgb_tuned_model.joblib), scaler (rv_feature_scaler.joblib), and training dataset (rv_training_data.csv).
+Predicted NEXT 14-day realised volatility (annualised): 22.45
+Latest data date: 2025-11-03
 
+---
 
-🧰 Tech Stack
+### 5. Deployment Artifacts
 
-Data:	Alpaca API • pandas • numpy • datetime
-ML & Validation:	scikit-learn (GridSearchCV, TimeSeriesSplit) • xgboost
-Feature Engineering:	ta (RSI, Bollinger Bands, ATR)
-Evaluation & Persistence:	MAE / RMSE metrics • joblib
-Environment:	dotenv (for API keys) • Python 3.10+
+| File | Purpose |
+|:--|:--|
+| `rv_har_xgb_tuned_model.joblib` | Saved XGBoost model with best hyperparameters |
+| `rv_feature_scaler.joblib` | Scaler object for feature standardisation |
+| `rv_training_data.csv` | Clean training dataset with features + target |
+| `.env` (template) | Secure API key storage for Alpaca |
 
+---
 
-📊 Outputs
+## 🧠 Core Technologies
 
-MAE:	Mean Absolute Error between predicted vs actual volatility
-RMSE:	Root Mean Squared Error – sensitive to outliers
-Relative MAE:	Model error as % of average realised vol
-Forecast:	Predicted next 14-day annualised realised volatility
+**Python Libraries Used**  
+`pandas` • `numpy` • `scikit-learn` • `xgboost` • `ta` • `alpaca-py` • `joblib` • `python-dotenv`
+
