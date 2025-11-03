@@ -1,0 +1,19 @@
+# Core scientific libraries
+numpy
+pandas
+scipy
+
+# Machine learning & preprocessing
+scikit-learn
+xgboost
+joblib
+
+# Technical indicators
+ta
+
+# API & data
+alpaca-py
+python-dotenv
+
+# Optional (for reproducibility and plotting if you later add visuals)
+matplotlib
