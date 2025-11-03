@@ -68,17 +68,6 @@ Latest data date: 2025-11-03
 
 ---
 
-### 5. Deployment Artifacts
-
-| File | Purpose |
-|:--|:--|
-| `rv_har_xgb_tuned_model.joblib` | Saved XGBoost model with best hyperparameters |
-| `rv_feature_scaler.joblib` | Scaler object for feature standardisation |
-| `rv_training_data.csv` | Clean training dataset with features + target |
-| `.env` (template) | Secure API key storage for Alpaca |
-
----
-
 ## 🧠 Core Technologies
 
 **Python Libraries Used**  
