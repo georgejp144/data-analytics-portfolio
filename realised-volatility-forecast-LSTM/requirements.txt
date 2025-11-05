@@ -1,8 +1,19 @@
-tensorflow
-pandas
+# Core scientific libraries
 numpy
+pandas
+scipy
+
+# Machine learning & preprocessing
 scikit-learn
+joblib
+tensorflow
+
+# Technical indicators
 ta
+
+# API & data
 alpaca-py
 python-dotenv
-joblib
+
+# Optional (for reproducibility and plotting if you later add visuals)
+matplotlib
