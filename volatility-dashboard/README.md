@@ -1,110 +1,74 @@
 # 📊 Options Swing-Trading Indicator — Gamma Scalping & Volatility Timing Dashboard
 
-This project builds an **interactive Power BI analytics system** that identifies *high-probability straddle entries* for **gamma-scalping** and **volatility-arbitrage** setups.  
-It integrates **realised vs implied volatility analytics**, **price-compression signals**, and **event proximity** metrics to detect when volatility is **underpriced** and a **market catalyst** is approaching.
+<p align="center">
+  <img src="assets/Power%20BI%20Dash.jpg" width="900">
+</p>
+
+This project builds an **interactive Power BI analytics dashboard** that identifies *high-probability long-volatility entry setups* for **gamma-scalping** and **straddle-based volatility-timing**.  
+It combines **14-Day Implied Volatility**, **LSTM-predicted 14-Day Realised Volatility**, **price-compression measures**, and **event-timing signals** to highlight when **volatility is underpriced** and **expansion is likely**.
 
 ---
 
 ## 🎯 Objective
 
-Quantify short-term **volatility expansion potential** and **event-driven breakout conditions** for major NASDAQ assets (e.g., QQQ, AAPL, NVDA), enabling precise timing of **long-volatility strategies** such as **ATM straddles** or **calendar spreads**.
+Identify **optimal entry timing** for **ATM straddles, long gamma, and calendar spreads** on NASDAQ assets (primarily **QQQ**) by detecting when:
+
+- **Implied Volatility is cheap** relative to **forecasted Realised Volatility**
+- **Price is coiling** (volatility compression phase)
+- A **catalytic event is approaching** (earnings, CPI, FOMC, etc.)
 
 ---
 
-## ⚙️ Methodology
+## ⚙️ Data Pipeline
 
-### 1. Data Collection
-- Daily OHLCV data via **Alpaca API** or **yfinance**.  
-- Option-chain data for **ATM Implied Volatility (14 DTE)**.  
-- **Realised Volatility** computed from rolling log returns.  
-- **Event calendar** covering earnings, CPI, FOMC, NFP, etc.  
-- Optional **market sentiment** metrics (VIX, put/call ratio, breadth).
+- **Historical price data** sourced from **Alpaca API** and **Yahoo Finance**
+- **14-Day Realised Volatility Forecast** generated using an **LSTM neural network**
+- **14-Day ATM Implied Volatility** sourced from option-chain data
+- **Event calendar** merged to compute *Days Until Catalyst*
 
----
-
-### 2. Feature Engineering
-- **Volatility Compression Index (VCI):** normalised ATR or Bollinger-band width.  
-- **IV–RV Spread:** `(IV − RV) / RV` to highlight under- or over-pricing.  
-- **Catalyst Proximity:** days until next scheduled macro or earnings event.  
-- **Volatility Regime:** percentile rank of VIX or realised-vol clusters.  
-- **Price Range Ratio:** recent high–low range as a % of average price (detects coiling).
+All data outputs are combined into a single `.csv` file for direct use in Power BI.
 
 ---
 
-### 3. Signal Logic
-
-| Condition | Description | Trading Implication |
-|:--|:--|:--|
-| **IV < RV** | Implied vol underpricing realised vol | Long-vol edge — buy straddle |
-| **VCI < 0.5** | Price compressed within narrow range | Coiled — breakout potential |
-| **Days to Event < 3** | Catalyst imminent | Anticipate volatility spike |
-| **Low VIX Percentile** | Cheap vol regime | Attractive entry environment |
-
----
-
-### 4. Dashboard Architecture
+## 📊 Dashboard Components
 
 | Component | Purpose | Visual Type |
 |:--|:--|:--|
-| **KPI Tiles** | Show IV, RV, IV–RV Spread, Days to Event, VCI | Numeric cards with conditional color |
-| **Volatility Trend Chart** | Track IV vs RV through time | Dual-axis line chart |
-| **ATR / Bollinger Width** | Highlight compression phases | Line or area chart |
-| **Event Timeline** | Visualise upcoming catalysts | Milestone or Gantt chart |
-| **Trade Readiness Gauge** | Composite entry score | Radial gauge indicator |
-
-#### 🧮 Composite Signal Formula (DAX)
-```DAX
-TradeReadiness =
-50*(1 - NORMALIZE(IV - RV)) +
-30*(1 - NORMALIZE(VCI)) +
-20*(1 - NORMALIZE(DaysToEvent))
-```
-
-| Score | Interpretation |
-|:--|:--|
-| 0 – 40 | 🔴 Not Ready |
-| 40 – 70 | 🟡 Setup Forming |
-| 70 – 100 | 🟢 Prime for Straddle Entry |
+| **14D Implied Volatility** | Market pricing of near-term volatility | KPI Card |
+| **LSTM 14D RV Forecast** | Model expectation of future actual volatility | KPI Card |
+| **Relative MAE** | Model confidence / forecast reliability | KPI Card |
+| **Main Trade Signal (IV − RV)** | Detects volatility under/overpricing | KPI Card w/ conditional color |
+| **Days to Event** | Identifies proximity to catalyst | KPI Card |
 
 ---
 
-### 5. Evaluation
-- **Volatility Metrics:** correlation between IV and RV, average IV–RV spread.  
-- **Compression Detection:** frequency of VCI < 0.4 before realised breakout.  
-- **Catalyst Accuracy:** % of times volatility expanded within ±3 days of flagged events.  
-- **Composite Score Back-test:** hit-rate of profitable long-vol entries when readiness > 70.
+## 🔍 Volatility & Price Structure Visuals
+
+| Visual | Description | Insight |
+|:--|:--|:--|
+| **Volatility Compression Gauge** | Normalised volatility compression (BB/ATR) | Detects coiling phases |
+| **Volatility Expansion Gauge (ATR)** | Measures volatility breakout strength | Confirms expansion phases |
+| **14D RV vs 14D IV Historical Chart** | Compares realised vs implied volatility | Identifies cheap vs expensive IV |
+| **14D Volatility Percentile Rank** | Current vol regime vs history | Normalises current market state |
+| **QQQ Close Price Chart** | Market structure + breakout context | Confirms trade timing |
 
 ---
 
-## 📊 Results
+## 🧠 Trade Signal Logic
 
-| Metric | Mean Value | Interpretation |
-|:--|--:|:--|
-| **Avg IV–RV Spread** | −0.17 | IV underpricing realised vol → cheap options |
-| **Avg VCI Pre-Event** | 0.36 | Strong compression before catalysts |
-| **Catalyst Success Rate** | 73 % | Volatility expanded within 3 days |
-| **Avg Trade Readiness Score** | 78 / 100 | Prime setup conditions identified |
+| Condition | Interpretation | Action |
+|:--|:--|:--|
+| **IV < LSTM RV Forecast** | Options appear cheap | ✅ Consider Long Gamma / Straddle |
+| **Compression Gauge Low** | Market coiling | ⏳ Watch for breakout |
+| **Days to Event Small** | Catalyst nearby | ⚡ Expect volatility expansion |
 
-✅ The dashboard reliably highlights periods of **volatility compression and underpriced IV**, providing early alerts for **gamma-scalping straddle entries** around major catalysts.
+When these align → **High-probability Long-Volatility Setup**.
 
 ---
 
 ## 🧰 Tech Stack
 
-**Power BI** • **DAX** • **Alpaca API** • **Python (pandas, NumPy)** • **yfinance** • **Excel / CSV**
+**Power BI** • **DAX** • **Python (LSTM Forecast Model)** • **Alpaca API** • **yfinance** • **CSV**
 
 ---
 
-## 🚀 Next Steps
-
-- Integrate **HAR / XGBoost realised-volatility forecasts** as predictive overlays.  
-- Add **sentiment and news feeds** for catalyst confirmation.  
-- Compute **IV percentile ranks** for cheap-vol screening.  
-- Link dashboard alerts to **Alpaca trading-bot pipeline** for semi-automated execution.
-
----
-
-
-
-## 🧾 License
-MIT License — open for educational and research use.
