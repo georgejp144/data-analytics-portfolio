@@ -1,5 +1,9 @@
 # 💹 Global Macro Dashboard — Multi-Asset Economic Data Visualizer (R Shiny)
 
+<p align="center">
+  <img src="assets/Main%20Dashboard%20Image.jpg" width="900">
+</p>
+
 This project builds an **interactive macroeconomic dashboard** in **R Shiny** that visualises cross-asset relationships across **global markets**, **monetary policy**, and **economic indicators**.  
 It integrates data from **FRED** and **Yahoo Finance** into a unified macro dataset, transforming it into a **dynamic analytical interface** for macro-financial insight.
 
