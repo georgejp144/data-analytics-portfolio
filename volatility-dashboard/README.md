@@ -11,7 +11,7 @@ It combines **14-Day Implied Volatility**, **LSTM-predicted 14-Day Realised Vola
 
 ## 🎯 Objective
 
-Identify **optimal entry timing** for **ATM straddles, long gamma, and calendar spreads** on NASDAQ assets (primarily **QQQ**) by detecting when:
+Identify **optimal entry timing** for **ATM straddles and long gamma** on NASDAQ assets (primarily **QQQ**) by detecting when:
 
 - **Implied Volatility is cheap** relative to **forecasted Realised Volatility**
 - **Price is coiling** (volatility compression phase)
