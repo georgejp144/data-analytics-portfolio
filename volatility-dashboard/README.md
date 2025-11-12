@@ -1,7 +1,7 @@
 # 📊 Options Swing-Trading Indicator — Gamma Scalping & Volatility Timing Dashboard
 
 <p align="center">
-  <img src="assets/Power%20BI%20Dash.jpg" width="900">
+  <img src="assets/New Dash - Volatility Arb.jpg" width="900">
 </p>
 
 This project builds an **interactive Power BI analytics dashboard** that identifies *high-probability long-volatility entry setups* for **gamma-scalping** and **straddle-based volatility-timing**.  
