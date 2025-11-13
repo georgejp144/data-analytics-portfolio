@@ -10,7 +10,7 @@ Each project has its own folder with code, notebooks, and documentation.
 
 | Project | Description | Tech Stack |
 |:--|:--|:--|
-| [14-Day Realised Volatility Forecasting Engine](./14-Day Realised Volatility Forecasting Engine/README.md) | This project implements a state-of-the-art volatility forecasting system designed to predict 14-day realised volatility (RV) across equity tickers (NASDAQ-100 and beyond). | python, pandas, numpy, scikit-learn, tensorflow.keras, XGBoost, ta, scipy, alpaca-py, yfinance, dotenv, RobustScaler |
+| [14-Day Realised Volatility Forecasting Engine](./volatility-dashboard/README.md) | This project implements a state-of-the-art volatility forecasting system designed to predict 14-day realised volatility (RV) across equity tickers (NASDAQ-100 and beyond). | python, pandas, numpy, scikit-learn, tensorflow.keras, XGBoost, ta, scipy, alpaca-py, yfinance, dotenv, RobustScaler |
 | [Volatility Dashboard](./volatility-dashboard/README.md) | This project builds an interactive Power BI dashboard that helps identify high-probability straddle entries for gamma-scalping or short-term volatility trades. | Power BI, Alpaca API, pandas, numpy |
 | [Global Macro Dashboard](./global_macro_dashboard/README.md) | This project builds an interactive macroeconomic dashboard in R Shiny that visualises cross-asset relationships across global markets, monetary policy, and economic indicators. | R, shinydashboard, dplyr, ggplot2 |
 | [Gamma Scalping Bot](./gamma-scalping-bot/README.md) | Automated delta-neutral trading bot using Alpaca API. Calculates option Greeks, maintains portfolio neutrality, and demonstrates volatility arbitrage principles. | Python, Alpaca API, pandas, sciPy, asyncio |
