@@ -1,0 +1,23 @@
+# Core scientific libraries
+numpy
+pandas
+scipy
+
+# Machine learning & deep learning
+scikit-learn
+xgboost
+tensorflow
+
+# Technical indicators (RSI, ATR, Bollinger, etc.)
+ta
+
+# API & market data
+alpaca-py
+yfinance
+
+# Utilities
+python-dotenv
+joblib
+
+# Optional but recommended for debugging / plotting
+matplotlib
