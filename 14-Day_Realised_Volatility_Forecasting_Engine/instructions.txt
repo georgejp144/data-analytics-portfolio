@@ -1,0 +1,99 @@
+1. Install Python
+
+You need Python 3.9 or higher.
+Download it from: https://www.python.org/downloads/
+
+2. Install Required Python Packages
+
+Open a terminal (Command Prompt, PowerShell, or Terminal) and run:
+
+pip install -r requirements.txt
+
+
+This installs all the libraries needed (NumPy, pandas, TensorFlow, XGBoost, Alpaca API, TA indicators, etc.).
+
+3. Add Your Alpaca API Keys
+
+The script requires Alpaca Data API keys for historical price data.
+
+In the project folder, create a file called .env
+
+Add the following lines:
+
+ALPACA_API_KEY_ID=your_key_here
+ALPACA_API_SECRET_KEY=your_secret_here
+
+
+Save the file.
+The code will load these automatically.
+
+4. Create the symbols.csv File
+
+This file tells the batch runner which tickers to process.
+
+Create a file named symbols.csv in the root folder, and add one ticker per line. Example:
+
+symbol
+QQQ
+AAPL
+MSFT
+NVDA
+
+
+Do not include spaces or extra formatting.
+
+
+5. Run the Pipeline
+
+The script will:
+
+Load API keys
+
+Read symbols.csv
+
+Download 7 years of data
+
+Build the feature set
+
+Compute ATM IV (14-DTE)
+
+Train LSTM
+
+Train XGBoost
+
+Run walk-forward validation
+
+Compute regime similarity
+
+Compute drift score
+
+Build ensemble forecast
+
+Generate volatility signals
+
+Export all output files
+
+This process may take several minutes depending on your hardware and number of tickers.
+
+6. Outputs Are Saved Automatically
+
+After running, you will find all results in:
+
+batch_vol_runs/
+
+
+This folder is auto-created if it does not exist.
+
+You will see:
+
+feature_set_<TICKER>.csv
+
+feature_health_<TICKER>.csv
+
+wfa_xgb_<TICKER>.csv
+
+vol_dashboard_data_<TICKER>.csv
+
+summary_metrics.csv
+
+These files include forecasts, IV–RV edge, compression metrics, model weights, confidence scores, drift scores, and all signals.
