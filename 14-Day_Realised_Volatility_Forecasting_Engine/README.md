@@ -36,6 +36,7 @@ Traditional models (GARCH, HAR) struggle in modern markets.
 This system aims to deliver stable, regime-aware, ML-driven forecasts suitable for real trading workflows.
 
 🧠 Core Features
+
 📌 1. 7-Year Historical Dataset (Deterministic, Missing-Data Safe)
 
 Everything is reproducible with fixed seeds, UTC-safe timestamps, and automatic data cleaning.
